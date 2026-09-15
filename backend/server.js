@@ -95,14 +95,11 @@ app.use(errorHandler);
 // Start server
 const PORT = config.port;
 
-httpServer.listen(PORT, () => {
-  console.log('='.repeat(50));
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📝 Environment: ${config.nodeEnv}`);
-  console.log(`🌐 Frontend URL: ${config.frontendUrl}`);
-  console.log(`📡 API Base: http://localhost:${PORT}/api/v1`);
-  console.log('='.repeat(50));
-});
+  if (process.env.NODE_ENV !== 'production') {
+  httpServer.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
@@ -118,3 +115,4 @@ process.on('uncaughtException', (err) => {
 });
 
 export { io };
+export default app;
